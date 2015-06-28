@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Akka.Actor;
+using Newtonsoft.Json;
 
 namespace TransitTracker
 {
@@ -13,7 +14,7 @@ namespace TransitTracker
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://localhost:60406");
+                    client.BaseAddress = new Uri("http://transittracker.azurewebsites.net");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

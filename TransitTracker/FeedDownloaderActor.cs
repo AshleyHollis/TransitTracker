@@ -31,8 +31,8 @@ namespace TransitTracker
                     var req = WebRequest.Create(message.URL);
                     var feed = Serializer.Deserialize<FeedMessage>(req.GetResponse().GetResponseStream());
 
-                    foreach (var entity in feed.entity.Where(a => !a.is_deleted && a.vehicle != null))
-                        //.Where(b => b.vehicle.vehicle.label == "101"))
+                    foreach (var entity in feed.entity.Where(a => !a.is_deleted && a.vehicle != null)
+                        .Where(b => b.vehicle.vehicle.label == "1"))
                     {
                         var vehiclePositionMessage = new Data.Models.VehiclePosition
                         {
