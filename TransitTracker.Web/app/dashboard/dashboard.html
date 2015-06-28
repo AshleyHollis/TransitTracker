@@ -48,7 +48,8 @@
                         </ui-gmap-google-map>-->
 
                         <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" events="map.events">
-                            <ui-gmap-marker ng-repeat="m in map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>
+                            <!--<ui-gmap-marker ng-repeat="m in map.markers" coords="m.coords" icon="m.icon" idkey="m.id"></ui-gmap-marker>-->
+                            <ui-gmap-markers models="vm.markers" idKey="'idKey'" coords="'self'" modelsbyref="false"></ui-gmap-markers>
                         </ui-gmap-google-map>
 
 
