@@ -14,7 +14,8 @@ namespace TransitTracker
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("http://transittracker.azurewebsites.net");
+                    //client.BaseAddress = new Uri("http://transittracker.azurewebsites.net");
+                    client.BaseAddress = new Uri("http://localhost:60406");
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
