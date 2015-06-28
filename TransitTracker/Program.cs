@@ -15,8 +15,9 @@ namespace TransitTracker
                 var feedURL = "https://gtfsrt.api.translink.com.au/feed";
 
                 var databaseActor = system.ActorOf<DatabaseActor>();
+                var vechiclePositionPostActor = system.ActorOf<VechiclePositionPostActor>();
 
-                var feedDownloaderActorProps = Props.Create<FeedDownloaderActor>(databaseActor);
+                var feedDownloaderActorProps = Props.Create<FeedDownloaderActor>(databaseActor, vechiclePositionPostActor);
                 var feedDownloaderActor = system.ActorOf(feedDownloaderActorProps, "FeedDownloaderActor");
 
                 feedDownloaderActor.Tell(new DownloadFeed {URL = feedURL});

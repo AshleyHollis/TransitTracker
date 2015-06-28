@@ -7,16 +7,19 @@ namespace TransitTracker
     public class VehicleActor : TypedActor, IHandle<Data.Models.VehiclePosition>
     {
         private IActorRef _databaseActor;
+        private IActorRef _vechiclePositionPostActor;
 
         private string _vehicleId;
         private float _lastLat;
         private float _lastLong;
         private DateTime _lastUpdate;
 
-        public VehicleActor(string vehicleId, IActorRef databaseActor)
+        public VehicleActor(string vehicleId, IActorRef databaseActor, IActorRef vechiclePositionPostActor)
         {
-            _databaseActor = databaseActor;
             _vehicleId = vehicleId;
+            _databaseActor = databaseActor;
+            _vechiclePositionPostActor = vechiclePositionPostActor;
+
         }
 
         public void Handle(Data.Models.VehiclePosition message)
@@ -37,6 +40,7 @@ namespace TransitTracker
                     TimeStamp = message.TimeStamp
                 };
 
+                _vechiclePositionPostActor.Tell(vehiclePositionUpdatedMessage);
                 _databaseActor.Tell(vehiclePositionUpdatedMessage);
             }
 

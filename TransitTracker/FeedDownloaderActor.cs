@@ -14,11 +14,13 @@ namespace TransitTracker
     public class FeedDownloaderActor : TypedActor, IHandle<DownloadFeed>
     {
         private IActorRef _databaseActor;
+        private IActorRef _vechiclePositionPostActor;
         private Dictionary<string, IActorRef> createdActors = new Dictionary<string, IActorRef>();
 
-        public FeedDownloaderActor(IActorRef databaseActor)
+        public FeedDownloaderActor(IActorRef databaseActor, IActorRef vechiclePositionPostActor)
         {
             _databaseActor = databaseActor;
+            _vechiclePositionPostActor = vechiclePositionPostActor;
         }
 
         public void Handle(DownloadFeed message)
@@ -45,7 +47,7 @@ namespace TransitTracker
                         var vehicleId = entity.vehicle.vehicle.id;
                         if (!createdActors.ContainsKey(vehicleId))
                         {
-                            var vehicleActorProps = Props.Create<VehicleActor>(vehicleId, _databaseActor);
+                            var vehicleActorProps = Props.Create<VehicleActor>(vehicleId, _databaseActor, _vechiclePositionPostActor);
                             var vehicleActor = Context.ActorOf(vehicleActorProps, vehicleId);
                             createdActors.Add(vehicleId, vehicleActor);
                             //vehicleActor.Tell(vehiclePositionMessage);
